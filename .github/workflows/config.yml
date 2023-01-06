@@ -20,8 +20,8 @@ jobs:
       - run: npm run build
       - run: npm run test
       - run: npx codecov
-      - uses: actions/cache@v2
-          if: success()
+      - if: success()
+        uses: actions/cache@v2
           with:
             path: ./node_modules
             key: dependency-cache-{{ checksum "package-lock.json" }}
