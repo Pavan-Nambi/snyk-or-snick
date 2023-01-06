@@ -25,9 +25,9 @@ jobs:
         with:
           path: ./node_modules
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      # - run:
-      #   name: Persist workspace
-      #   command: echo "Nothing to persist"
+      - run:
+        name: Persist workspace
+        command: echo "Nothing to persist"
 
   lint:
     runs-on: ubuntu-latest
