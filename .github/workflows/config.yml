@@ -13,16 +13,16 @@ jobs:
       - uses: actions/checkout@v2
       - id: cache
         uses: actions/cache@v2
-          with:
-            path: ./node_modules
-            key: dependency-cache-{{ checksum "package-lock.json" }}
+        with:
+          path: ./node_modules
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run: npm install --ignore-engines
       - run: npm run build
       - run: npm run test
       - run: npx codecov
       - if: success()
         uses: actions/cache@v2
-          with:
+            with:
             path: ./node_modules
             key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
