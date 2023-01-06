@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        id: cache
+      - id: cache
         uses: actions/cache@v2
         with:
           path: ./node_modules
@@ -25,15 +25,15 @@ jobs:
         with:
           path: ./node_modules
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-        name: Persist workspace
-        command: echo "Nothing to persist"
+      # - run:
+      #   name: Persist workspace
+      #   command: echo "Nothing to persist"
 
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        id: cache
+      - id: cache
         uses: actions/cache@v2
         with:
           path: ./node_modules
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        id: cache
+      - id: cache
         uses: actions/cache@v2
         with:
           path: ./node_modules
