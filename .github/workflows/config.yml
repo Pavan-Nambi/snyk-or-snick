@@ -1,0 +1,52 @@
+name: config
+
+on:
+  push:
+    branches:
+      - master
+      - test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+          id: cache
+          with:
+            path: ./node_modules
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm install --ignore-engines
+      - run: npm run build
+      - run: npm run test
+      - run: npx codecov
+      - uses: actions/cache@v2
+          if: success()
+          with:
+            path: ./node_modules
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+        name: Persist workspace
+        command: echo "Nothing to persist"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+          id: cache
+          with:
+            path: ./node_modules
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm run lint
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+          id: cache
+          with:
+            path: ./node_modules
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm run semantic-release
